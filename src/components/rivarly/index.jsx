@@ -97,7 +97,7 @@ export const RivalryMeter = () => {
       <div className="btns">
         <Button3D
           label={"X"}
-          action={() => window.open(" https://x.com", "_blank")}
+          action={() => window.open("https://x.com/tarrifwars", "_blank")}
         />
       </div>
       <div className="sides">
@@ -108,7 +108,7 @@ export const RivalryMeter = () => {
           <div className="label">USA</div>
           <div className="label">TARIFFS | SUPPORTER</div>
           <div className="percent">
-            {redPercent}% | {data.support} <BiUser/>
+            {redPercent}% | {data.support} <BiUser />
           </div>
           <button
             className="action-btn support"
@@ -138,7 +138,7 @@ export const RivalryMeter = () => {
           <div className="label">The Rest of the World</div>
           <div className="label">TARIFFS | SUPPORTER</div>
           <div className="percent">
-            {100 - redPercent}% | {data.oppose} <BiUser/>
+            {100 - redPercent}% | {data.oppose} <BiUser />
           </div>
           <button
             className="action-btn oppose"
