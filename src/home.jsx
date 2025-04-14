@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { RivalryMeter } from "./components/rivarly";
 import "./home.css";
 import music from "./assets/music.mp3";
-import { Button3D } from "./components/button.components";
 
 export const App = () => {
   const [audio] = useState(new Audio(music));
@@ -25,7 +24,7 @@ export const App = () => {
     <div className="wrapper">
       <RivalryMeter />
       <div className="footer">
-        <p>© 2025 Vote</p>
+        <p>© 2025 Revalry Meter. Choose your Side and Support It</p>
       </div>
     </div>
   );
