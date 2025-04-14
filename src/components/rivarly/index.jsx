@@ -108,7 +108,7 @@ export const RivalryMeter = () => {
           <div className="label">USA</div>
           <div className="label">TARIFFS | SUPPORTER</div>
           <div className="percent">
-            {redPercent}% | {data.oppose} <BiUser  style={{paddingTop:"5px"}}/>
+            {redPercent}% | {data.oppose} <BiUser/>
           </div>
           <button
             className="action-btn support"
@@ -138,7 +138,7 @@ export const RivalryMeter = () => {
           <div className="label">The Rest of the World</div>
           <div className="label">TARIFFS | SUPPORTER</div>
           <div className="percent">
-            {100 - redPercent}% | {data.oppose} <BiUser  style={{paddingTop:"5px"}}/>
+            {100 - redPercent}% | {data.oppose} <BiUser/>
           </div>
           <button
             className="action-btn oppose"
