@@ -157,6 +157,14 @@ export const RivalryMeter = () => {
       <h1 className="title">RIVALRY METER</h1>
       <h2 className="subtitle">choose your side and support it</h2>
       <p className="voter-count">Visitors Count: {visitors}</p>
+      <div className="btns">
+        <Button3D label={"Download Rivalry Meter"} action={downloadCard} />
+        <Button3D
+          label={"X"}
+          action={() => window.open(" https://x.com", "_blank")}
+        />
+        <Button3D label={"Change your side"} action={changeSide} />
+      </div>
       <div className="sides">
         <div className="side red">
           <div className="icon">
@@ -215,14 +223,6 @@ export const RivalryMeter = () => {
         >
           <img src={trump_support} alt="Trump Support" />
         </div>
-      </div>
-      <div className="btns">
-        <Button3D label={"Download Rivalry Meter"} action={downloadCard} />
-        <Button3D
-          label={"X"}
-          action={() => window.open(" https://x.com", "_blank")}
-        />
-        <Button3D label={"Change your side"} action={changeSide} />
       </div>
     </div>
   );
