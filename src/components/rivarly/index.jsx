@@ -3,11 +3,7 @@ import { gsap } from "gsap";
 import "./index.css";
 import trump from "../../assets/trump.png";
 import earth from "../../assets/earth.png";
-import trump_support from "../../assets/support-trump.png";
-import earth_support from "../../assets/earth-support.png";
 import spark from "../../assets/spark1.gif";
-import support_voice from "../../assets/support.mp3";
-import { saveCardAsImage } from "../../context/fetch.service";
 import { Button3D } from "../button.components";
 
 export const RivalryMeter = () => {
@@ -17,34 +13,6 @@ export const RivalryMeter = () => {
   const [redPercent, setRedPercent] = useState(50);
   const [visitors, setVisitors] = useState(0);
   const [voted, setVoted] = useState(localStorage.getItem("voted") === "true");
-  const [manyVotes, setManyVotes] = useState(null);
-  const [audio] = useState(new Audio(support_voice));
-  const [isMusicStarted, setIsMusicStarted] = useState(false);
-
-  // Ses açma
-  const playVoteSound = () => {
-    audio.volume = 0.5;
-    audio.play().catch((err) => console.log("Autoplay blocked:", err));
-    setTimeout(() => {
-      audio.pause();
-      audio.currentTime = 0; // sıfırla
-    }, 5000);
-  };
-
-  useEffect(() => {
-    const playMusic = () => {
-      if (!isMusicStarted) {
-        audio.loop = false;
-        audio.volume = 0;
-        audio.play().catch((err) => console.log("Autoplay blocked:", err));
-        setIsMusicStarted(true);
-      }
-    };
-
-    document.addEventListener("click", playMusic, { once: true });
-
-    return () => document.removeEventListener("click", playMusic);
-  }, [isMusicStarted, audio]);
 
   // Oranları backend'den çek
   const fetchResults = async () => {
@@ -57,18 +25,6 @@ export const RivalryMeter = () => {
       if (total > 0) {
         const percent = Math.round((data.votes.support / total) * 100);
         setRedPercent(percent);
-
-        if (percent > 50) {
-          setManyVotes("trump");
-        } else if (percent === 50) {
-          setManyVotes("equal");
-        } else {
-          setManyVotes("earth");
-        }
-        playVoteSound();
-        setTimeout(() => {
-          setManyVotes(null);
-        }, 5000);
       }
     } catch (err) {
       console.error("❌ Result fetch error:", err);
@@ -130,40 +86,16 @@ export const RivalryMeter = () => {
     }
   };
 
-  const downloadCard = async () => {
-    const cardElement = document.querySelector(".sides");
-    saveCardAsImage(cardElement);
-  };
-
-  const changeSide = async () => {
-    if (!voted) return;
-    const res = await fetch("https://rivalry-server.vercel.app/change-side", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ vote: voted ? "support" : "oppose" }),
-    });
-    const data = await res.json();
-    if (res.ok) {
-      localStorage.setItem("voted", "false");
-      setVoted(false);
-      fetchResults();
-    } else {
-      alert(data.message);
-    }
-  };
-
   return (
     <div className="rivalry-layout">
-      <h1 className="title">RIVALRY METER</h1>
+      <h1 className="title">Tariff Wars</h1>
       <h2 className="subtitle">choose your side and support it</h2>
       <p className="voter-count">Visitors Count: {visitors}</p>
       <div className="btns">
-        <Button3D label={"Download Rivalry Meter"} action={downloadCard} />
         <Button3D
           label={"X"}
           action={() => window.open(" https://x.com", "_blank")}
         />
-        <Button3D label={"Change your side"} action={changeSide} />
       </div>
       <div className="sides">
         <div className="side red">
@@ -208,20 +140,6 @@ export const RivalryMeter = () => {
           >
             OPPOSE
           </button>
-        </div>
-        <div
-          className={`earth support-img ${
-            manyVotes === "earth" || manyVotes === "equal" ? "open" : "close"
-          }`}
-        >
-          <img src={earth_support} alt="Earth Support" />
-        </div>
-        <div
-          className={`trump support-img ${
-            manyVotes === "trump" || manyVotes === "equal" ? "open" : "close"
-          }`}
-        >
-          <img src={trump_support} alt="Trump Support" />
         </div>
       </div>
     </div>

@@ -24,7 +24,7 @@ export const App = () => {
     <div className="wrapper">
       <RivalryMeter />
       <div className="footer">
-        <p>© 2025 Revalry Meter. Choose your Side and Support It</p>
+        <p>© 2025 Tariff Wars. Choose your Side and Support It</p>
       </div>
     </div>
   );
