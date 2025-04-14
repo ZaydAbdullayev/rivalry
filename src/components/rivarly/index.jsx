@@ -135,9 +135,21 @@ export const RivalryMeter = () => {
     saveCardAsImage(cardElement);
   };
 
-  const changeSide = () => {
-    localStorage.removeItem("voted");
-    setVoted(false);
+  const changeSide = async () => {
+    if (!voted) return;
+    const res = await fetch("https://rivalry-server.vercel.app/change-side", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ vote: voted ? "support" : "oppose" }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem("voted", "false");
+      setVoted(false);
+      fetchResults();
+    } else {
+      alert(data.message);
+    }
   };
 
   return (
