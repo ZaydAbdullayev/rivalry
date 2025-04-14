@@ -5,6 +5,7 @@ import trump from "../../assets/trump.png";
 import earth from "../../assets/earth.png";
 import spark from "../../assets/spark1.gif";
 import { Button3D } from "../button.components";
+import { BiUser } from "react-icons/bi";
 
 export const RivalryMeter = () => {
   const gaugeRef = useRef(null);
@@ -13,6 +14,7 @@ export const RivalryMeter = () => {
   const [redPercent, setRedPercent] = useState(50);
   const [visitors, setVisitors] = useState(0);
   const [voted, setVoted] = useState(localStorage.getItem("voted") === "true");
+  const [data, setData] = useState({});
 
   // Oranları backend'den çek
   const fetchResults = async () => {
@@ -21,6 +23,7 @@ export const RivalryMeter = () => {
       const data = await res.json();
       const total = data.votes.support + data.votes.oppose;
       setVisitors(data.visitors);
+      setData(data.votes);
 
       if (total > 0) {
         const percent = Math.round((data.votes.support / total) * 100);
@@ -103,8 +106,10 @@ export const RivalryMeter = () => {
             <img src={trump} alt="Trump" className="icon-img" />
           </div>
           <div className="label">USA</div>
-          <div className="label">TARIFFS</div>
-          <div className="percent">{redPercent}%</div>
+          <div className="label">TARIFFS | SUPPORTER</div>
+          <div className="percent">
+            {redPercent}% | {data.oppose} <BiUser  style={{paddingTop:"5px"}}/>
+          </div>
           <button
             className="action-btn support"
             onClick={() => vote("support")}
@@ -131,8 +136,10 @@ export const RivalryMeter = () => {
             <img src={earth} alt="Earth" className="icon-img" />
           </div>
           <div className="label">The Rest of the World</div>
-          <div className="label">TARIFFS</div>
-          <div className="percent">{100 - redPercent}%</div>
+          <div className="label">TARIFFS | SUPPORTER</div>
+          <div className="percent">
+            {100 - redPercent}% | {data.oppose} <BiUser  style={{paddingTop:"5px"}}/>
+          </div>
           <button
             className="action-btn oppose"
             onClick={() => vote("oppose")}
