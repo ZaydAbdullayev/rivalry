@@ -135,6 +135,11 @@ export const RivalryMeter = () => {
     saveCardAsImage(cardElement);
   };
 
+  const changeSide = () => {
+    localStorage.removeItem("voted");
+    setVoted(false);
+  };
+
   return (
     <div className="rivalry-layout">
       <h1 className="title">RIVALRY METER</h1>
@@ -205,6 +210,7 @@ export const RivalryMeter = () => {
           label={"X"}
           action={() => window.open(" https://x.com", "_blank")}
         />
+        <Button3D label={"Change your side"} action={changeSide} />
       </div>
     </div>
   );
