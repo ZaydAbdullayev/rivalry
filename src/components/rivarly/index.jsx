@@ -88,8 +88,6 @@ export const RivalryMeter = () => {
       console.error("❌ Vote error:", err);
     }
   };
-  console.log(data);
-  
 
   return (
     <div className="rivalry-layout">
