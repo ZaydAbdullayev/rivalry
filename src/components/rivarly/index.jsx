@@ -49,12 +49,10 @@ export const RivalryMeter = () => {
   // Oranları backend'den çek
   const fetchResults = async () => {
     try {
-      const res = await fetch("http://localhost:8088/results");
+      const res = await fetch("https://rivalry-server.vercel.app/results");
       const data = await res.json();
       const total = data.votes.support + data.votes.oppose;
-        setVisitors(data.visitors);
-        console.log("Visitors:", data.visitors);
-        
+      setVisitors(data.visitors);
 
       if (total > 0) {
         const percent = Math.round((data.votes.support / total) * 100);
@@ -113,7 +111,7 @@ export const RivalryMeter = () => {
     if (voted) return;
 
     try {
-      const res = await fetch("http://localhost:8088/vote", {
+      const res = await fetch("https://rivalry-server.vercel.app/vote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ vote: choice }),
