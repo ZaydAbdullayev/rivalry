@@ -19,7 +19,7 @@ export const RivalryMeter = () => {
   // Oranları backend'den çek
   const fetchResults = async () => {
     try {
-      const res = await fetch("https://rivalry-server.vercel.app/results");
+      const res = await fetch("http://localhost:8088/results");
       const data = await res.json();
       const total = data.votes.support + data.votes.oppose;
       setVisitors(data.visitors);
@@ -70,7 +70,7 @@ export const RivalryMeter = () => {
     if (voted) return;
 
     try {
-      const res = await fetch("https://rivalry-server.vercel.app/vote", {
+      const res = await fetch("http://localhost:8088/vote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ vote: choice }),
@@ -88,6 +88,8 @@ export const RivalryMeter = () => {
       console.error("❌ Vote error:", err);
     }
   };
+  console.log(data);
+  
 
   return (
     <div className="rivalry-layout">
@@ -108,7 +110,7 @@ export const RivalryMeter = () => {
           <div className="label">USA</div>
           <div className="label">TARIFFS | SUPPORTER</div>
           <div className="percent">
-            {redPercent}% | {data.oppose} <BiUser/>
+            {redPercent}% | {data.support} <BiUser/>
           </div>
           <button
             className="action-btn support"
